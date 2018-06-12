@@ -1,0 +1,35 @@
+body {
+    background: #C66923;
+}
+
+.usedLetter {
+    border: none;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    vertical-align: middle;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 20px;   
+}
+
+.notUsedLetter {
+    border: 2px solid black;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    vertical-align: middle;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 20px;
+}
+
+button {
+    background: black;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    margin: 20px 0;
+    padding: 10px;
+}
