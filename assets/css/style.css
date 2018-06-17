@@ -2,6 +2,21 @@ body {
     background: #C66923;
 }
 
+.heading {
+    background-image: url("../images/HangmanTwirl.png");
+    background-size: 100% auto;
+    height: 425px;
+}
+
+.logo {
+    margin: 3% 6% 1% 0;
+    padding: 5px 5px 5px 0;
+    float: left;
+    width: 100%;
+    text-align: center;
+    max-height: 425px;
+ }
+
 .usedLetter {
     border: none;
     height: 30px;
@@ -12,7 +27,7 @@ body {
     font-size: 20px;   
 }
 
-.notUsedLetter {
+.guessedLetter {
     border: 2px solid black;
     height: 30px;
     width: 30px;
@@ -22,14 +37,108 @@ body {
     font-size: 20px;
 }
 
+
+.r2c1 {
+    text-align: left;
+}
+
+.r2c2 {
+     text-align: center;
+}
+
+
 button {
     background: black;
-    color: white;
+    color: #F3B548;
     font-weight: bold;
     font-size: 20px;
     border-radius: 8px;
     cursor: pointer;
     border: none;
-    margin: 20px 0;
+    margin: 10px 0;
     padding: 10px;
+}
+
+#currGuess {
+    background: #C66923;
+    color: black;
+    border: 2px solid black;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    vertical-align: middle;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 20px; 
+}
+#guessesRem, #wins {
+    color: black;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    vertical-align: middle;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 20px; 
+    background-color: transparent;
+    border: 0px solid;
+}
+
+#win-lose-text {
+    padding-left: 63px;
+}
+
+#winnerOrLoser {
+    visibility: hidden;
+    width: 250px;
+    margin-top: 20px;
+    padding-left: 60px;
+}
+
+@media (max-width: 991px) {
+    .heading {
+        height: 325px;
+    }
+    #songByArtist {
+        font-size: 24px;
+    }
+    #winnerOrLoser {
+        width: 200px;
+        padding-left: 5px;
+    }
+    #win-lose-text {
+        font-size: 24px;
+        padding-left: 8px;
+    }
+}    
+
+@media (max-width: 767px) {
+    .heading {
+        height: 250px;
+    }
+    #songByArtist {
+        font-size: 20px;
+    } 
+    #winnerOrLoser {
+        width: 150px;
+    }
+    #win-lose-text {
+        font-size: 18px;
+    }   
+}   
+
+@media (max-width: 575px) {
+    .heading {
+        height: 400px;
+    }
+    .logo {
+        height: 40%;
+    }
+    #hangman, #artist {
+        height: 100%;
+    }
+    #songByArtist {
+        font-size: 16px;
+    }
+    .r2c1 {
+        text-align: center;
+    }
 }

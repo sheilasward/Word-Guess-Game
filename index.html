@@ -12,60 +12,94 @@
     <script type="text/javascript" src="./assets/javascript/game.js"></script>
     <title>Word Guess Game</title>
 </head>
-<body>
-    <div class="container">
-        <img src="assets/images/Hangman.jpg">
+<body onload="getReady()">
+    <div class="row heading">
+        <div class="container">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-10 logo">
+                <img src="assets/images/Hangman.jpg" class="img-fluid" id="hangman">
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-10 logo" style="text-align:center;">
+                <img src="assets/images/WhosTheArtist.png" class="img-fluid" id="artist">
+                <h2 id="songByArtist"></h2>
+            </div>
+        </div>
     </div>
     <div class="container">
-        <h2 id="SongByArtist"></h2>
-    </div>
-    <div class="container">
-        <button onclick="startGame()">Play Game</button>
-        <h4>Current Word:</h4>
-        <table>
-            <tr>
-                <td class="usedLetter" id="0"></td>
-                <td class="usedLetter" id="1"></td>
-                <td class="usedLetter" id="2"></td>
-                <td class="usedLetter" id="3"></td>
-                <td class="usedLetter" id="4"></td>
-                <td class="usedLetter" id="5"></td>
-                <td class="usedLetter" id="6"></td>
-                <td class="usedLetter" id="7"></td>
-                <td class="usedLetter" id="8"></td>
-                <td class="usedLetter" id="9"></td>
-                <td class="usedLetter" id="10"></td>
-                <td class="usedLetter" id="11"></td>
-                <td class="usedLetter" id="12"></td>
-                <td class="usedLetter" id="13"></td>
-                <td class="usedLetter" id="14"></td>
-                <td class="usedLetter" id="15"></td>
-                <td class="usedLetter" id="16"></td>
-                <td class="usedLetter" id="17"></td>
-                <td class="usedLetter" id="18"></td>
-                <td class="usedLetter" id="19"></td>
-            </tr>
-        </table><br>
-        <h4>Guess a letter: </h4>
-        <h4>Guesses Remaining: 12</h4><br>
+        <div class="row">
+            <div class="col-sm-6 r2c1">
+                <button onclick="startGame()">Play Game</button>
+                <h4>Current Word:</h4>
+                <table>
+                    <tr id="Artist">
+                        <td class="usedLetter" id="0"></td>
+                        <td class="usedLetter" id="1"></td>
+                        <td class="usedLetter" id="2"></td>
+                        <td class="usedLetter" id="3"></td>
+                        <td class="usedLetter" id="4"></td>
+                        <td class="usedLetter" id="5"></td>
+                        <td class="usedLetter" id="6"></td>
+                        <td class="usedLetter" id="7"></td>
+                        <td class="usedLetter" id="8"></td>
+                        <td class="usedLetter" id="9"></td>
+                        <td class="usedLetter" id="10"></td>
+                        <td class="usedLetter" id="11"></td>
+                        <td class="usedLetter" id="12"></td>
+                        <td class="usedLetter" id="13"></td>
+                        <td class="usedLetter" id="14"></td>
+                        <td class="usedLetter" id="15"></td>
+                        <td class="usedLetter" id="16"></td>
+                        <td class="usedLetter" id="17"></td>
+                        <td class="usedLetter" id="18"></td>
+                        <td class="usedLetter" id="19"></td>
+                    </tr>
+                </table><br>
+
+                <h4>Guess a letter: <input type="text" id="currGuess"></h4>
+                <h4>Guesses Remaining: <input type="text" id="guessesRem" value="12"></h4><br>
+                <h4>Wins: <input type="text" id="wins" value="0"></h4>
+            </div>
+            <div class="col-sm-4 r2c2">
+                <img src="assets/images/winner-win.jpg" id="winnerOrLoser"><br>
+                <h4 id="win-lose-text"></h4>
+            </div> 
+        </div>   
         <h4>Letters Already Guessed:</h4>
+
         <table>
             <tr>
-                <td class="notUsedLetter"></td>
-                <td class="notUsedLetter"></td>
-                <td class="notUsedLetter"></td>
-                <td class="notUsedLetter"></td>
-                <td class="notUsedLetter"></td>
-                <td class="notUsedLetter"></td>
-                <td class="notUsedLetter"></td>
-                <td class="notUsedLetter"></td>
-                <td class="notUsedLetter"></td>
-                <td class="notUsedLetter"></td>
-                <td class="notUsedLetter"></td>
-                <td class="notUsedLetter"></td>
+                <td class="guessedLetter" id="20"></td>
+                <td class="guessedLetter" id="21"></td>
+                <td class="guessedLetter" id="22"></td>
+                <td class="guessedLetter" id="23"></td>
+                <td class="guessedLetter" id="24"></td>
+                <td class="guessedLetter" id="25"></td>
+                <td class="guessedLetter" id="26"></td>
+                <td class="guessedLetter" id="27"></td>
+                <td class="guessedLetter" id="28"></td>
+                <td class="guessedLetter" id="29"></td>
+                <td class="guessedLetter" id="30"></td>
+                <td class="guessedLetter" id="31"></td>
+                <td class="guessedLetter" id="32"></td>
+                <td class="guessedLetter" id="33"></td>
+                <td class="guessedLetter" id="34"></td>
+                <td class="guessedLetter" id="35"></td>
+                <td class="guessedLetter" id="36"></td>
+                <td class="guessedLetter" id="37"></td>
+                <td class="guessedLetter" id="38"></td>
+                <td class="guessedLetter" id="39"></td>
+                <td class="guessedLetter" id="40"></td>
+                <td class="guessedLetter" id="41"></td>
+                <td class="guessedLetter" id="42"></td>
+                <td class="guessedLetter" id="43"></td>
+                <td class="guessedLetter" id="44"></td>
+
             </tr>
         </table><br>
-        <h4>Wins:</h4>
+
+        <audio controls id="song">
+     
+        </audio>
+           
     </div>
 </body>
 </html>
