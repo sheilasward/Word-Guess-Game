@@ -10,6 +10,7 @@ var selectedArtist = " ";
 var selectedSong = " ";
 var guessesRemaining = 12;
 var wins = 0;
+var playGame = false;
 
 function getReady() {
     wins = 0;
@@ -19,10 +20,12 @@ function getReady() {
     // Initialize the "played" array to all "false" (nothing has been played yet) 
     for (var i=0; i<artist.length; i++) {
         played[i] = false; 
-    }    
+    }
+    startGame();    
 }
 
 function startGame() {
+    playGame = true;
     console.log("startGame function");
     guessesRemaining = 12;
     document.getElementById("guessesRem").value = guessesRemaining;
@@ -82,83 +85,91 @@ function alphanumeric(txt) {
 }
 
 document.onkeyup = function(event) {
-    var userGuess = event.key;
-    var nbrLetter = alphanumeric(userGuess);
-    console.log("userGuess = " + userGuess);
-    console.log("nbrLetter = " + nbrLetter);
+    if (playGame == true) {
+        var userGuess = event.key;
+        var nbrLetter = alphanumeric(userGuess);
+        console.log("userGuess = " + userGuess);
+        console.log("nbrLetter = " + nbrLetter);
 
-    if (nbrLetter) { 
-        var UCLetter = userGuess.toUpperCase();
-        var LCLetter = userGuess.toLowerCase();
-        var foundinLettersGuessed = false;
-        var foundinArtist = false;
+        if (nbrLetter) { 
+            var UCLetter = userGuess.toUpperCase();
+            var LCLetter = userGuess.toLowerCase();
+            var foundinLettersGuessed = false;
+            var foundinArtist = false;
 
-        if (guessesRemaining > 0) {    
-            if (lettersGuessed.search(LCLetter) != -1) {
-                foundinLettersGuessed = true;
-            }
-                
-            if (foundinLettersGuessed == false) {
+            if (guessesRemaining > 0) {    
+                if (lettersGuessed.search(LCLetter) != -1) {
+                    foundinLettersGuessed = true;
+                }
+                    
+                if (foundinLettersGuessed == false) {
+                    for (var i=0; i<selectedArtist.length; i++) {
+                        if (selectedArtist[i] == LCLetter) {
+                            document.getElementById(i).innerHTML = LCLetter;
+                            foundinArtist = true;
+                        }
+                        if (selectedArtist[i] == UCLetter) {
+                            document.getElementById(i).innerHTML = UCLetter;
+                            foundinArtist = true;
+                        }
+                        if (selectedArtist[i] == " ")
+                            document.getElementById(i).innerHTML = " ";
+                    } 
+                }
+
+                if (foundinArtist == false && foundinLettersGuessed == false) {
+                    guessesRemaining--;
+                    document.getElementById("guessesRem").value = guessesRemaining;
+                    // Check for loss of game...
+                    if (guessesRemaining == 0) {
+                        document.getElementById("winnerOrLoser").src="./assets/images/HangmanLoses.jpg";
+                        document.getElementById("winnerOrLoser").style.visibility = "visible";
+                        document.getElementById("win-lose-text").innerHTML = "Sorry - you lose";
+                        playGame = false;
+                    }
+                }
+
+                if (foundinLettersGuessed == false) {
+                    lettersGuessed += LCLetter;
+                    document.getElementById(lettersGuessedIndex).textContent = LCLetter;
+                    lettersGuessedIndex++;
+                }
+
+                /* Check for wins */
+                var lettersAllFound = true;
                 for (var i=0; i<selectedArtist.length; i++) {
-                    if (selectedArtist[i] == LCLetter) {
-                        document.getElementById(i).innerHTML = LCLetter;
-                        foundinArtist = true;
+                    if (selectedArtist[i] != document.getElementById(i).innerHTML) {
+                        lettersAllFound = false;
+                        break; 
                     }
-                    if (selectedArtist[i] == UCLetter) {
-                        document.getElementById(i).innerHTML = UCLetter;
-                        foundinArtist = true;
-                    }
-                    if (selectedArtist[i] == " ")
-                        document.getElementById(i).innerHTML = " ";
-                } 
-            }
-
-            if (foundinArtist == false && foundinLettersGuessed == false) {
-                guessesRemaining--;
-                document.getElementById("guessesRem").value = guessesRemaining;
-                // Check for loss of game...
-                if (guessesRemaining == 0) {
-                    document.getElementById("winnerOrLoser").src="./assets/images/HangmanLoses.jpg";
+                }
+                if (lettersAllFound == true) {
+                    wins++;
+                    playGame = false;
+                    document.getElementById("wins").value = wins;
+                    document.getElementById("songByArtist").innerHTML = '"' + selectedTitle + '"<br>by ' + selectedArtist;
+                    document.getElementById("winnerOrLoser").src="./assets/images/winner-win.jpg";
                     document.getElementById("winnerOrLoser").style.visibility = "visible";
-                    document.getElementById("win-lose-text").innerHTML = "Sorry - you lose";
+                    document.getElementById("win-lose-text").innerHTML = "Great - you win!";
+                    selectedSong = "./assets/sounds/" + selectedSong;
+                    var audio = document.getElementById("song");
+                    audio.controls = false;  
+                    audio.volume = 0.8;
+                    audio.src = selectedSong;
+                    audio.play();
                 }
-            }
-
-            if (foundinLettersGuessed == false) {
-                lettersGuessed += LCLetter;
-                document.getElementById(lettersGuessedIndex).textContent = LCLetter;
-                lettersGuessedIndex++;
-            }
-
-            /* Check for wins */
-            var lettersAllFound = true;
-            for (var i=0; i<selectedArtist.length; i++) {
-                if (selectedArtist[i] != document.getElementById(i).innerHTML) {
-                    lettersAllFound = false;
-                    break; 
-                }
-            }
-            if (lettersAllFound == true) {
-                wins++;
-                document.getElementById("wins").value = wins;
-                document.getElementById("songByArtist").innerHTML = '"' + selectedTitle + '"<br>by ' + selectedArtist;
-                document.getElementById("winnerOrLoser").src="./assets/images/winner-win.jpg";
-                document.getElementById("winnerOrLoser").style.visibility = "visible";
-                document.getElementById("win-lose-text").innerHTML = "Great - you win!";
-                selectedSong = "./assets/sounds/" + selectedSong;
-                var audio = document.getElementById("song");
-                audio.controls = false;  
-                audio.volume = 0.8;
-                audio.src = selectedSong;
-                audio.play();
             }
         }
+        else {
+            userGuess = "";
+        }
+        document.getElementById("currGuess").value = "";
+        document.getElementById("currGuess").focus();
     }
     else {
-        userGuess = "";
+        console.log("You are at the right place!");
+        alert("Please click on 'Play Game'");
+        document.getElementById("currGuess").value = "";
+        document.getElementById("currGuess").focus();
     }
-    document.getElementById("currGuess").value = "";
-    document.getElementById("currGuess").focus();
 }
-
-
